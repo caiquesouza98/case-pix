@@ -11,8 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.itau.pix.pix.service.ContaPixService;
 import com.itau.pix.pix.model.ContaPix;
-import com.itau.pix.pix.dto.ChavePixUpdateDTO;
-import com.itau.pix.pix.dto.ChavePixCreateDTO;
+import com.itau.pix.pix.dto.ContaPixUpdateDTO;
+import com.itau.pix.pix.dto.ContaPixCreateDTO;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -41,14 +41,14 @@ public class ContaPixController {
   }
 
   @PostMapping
-  public ResponseEntity<ContaPix> saveAccount(@RequestBody @Valid ChavePixCreateDTO accountDTO) {
+  public ResponseEntity<ContaPix> saveAccount(@RequestBody @Valid ContaPixCreateDTO accountDTO) {
     ContaPix ContaPix = new ContaPix();
     BeanUtils.copyProperties(accountDTO, ContaPix);
     return ResponseEntity.status(HttpStatus.CREATED).body(contaPixService.save(ContaPix));
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<ContaPix> updateAccount(@PathVariable UUID id, @RequestBody @Valid ChavePixUpdateDTO accountDTO) {
+  public ResponseEntity<ContaPix> updateAccount(@PathVariable UUID id, @RequestBody @Valid ContaPixUpdateDTO accountDTO) {
     Optional<ContaPix> account = contaPixService.findById(id);
     if (account.isPresent()) {
       BeanUtils.copyProperties(accountDTO, account.get(), "id");

@@ -1,19 +1,15 @@
 package com.itau.pix.pix.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import com.itau.pix.pix.model.enumerator.TipoContaEnum;
+import com.itau.pix.pix.model.enumerator.TipoPessoaEnum;
+import com.itau.pix.pix.model.enumerator.TipoChaveEnum;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -25,18 +21,40 @@ public class ContaPix {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
+
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private String pessoa;
+  private TipoPessoaEnum tipoPessoa;
+
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false, length = 10)
-  private String tipoConta;
+  private TipoContaEnum tipoConta;
+
   @Column(nullable = false, length = 4)
   private String numAgencia;
+
   @Column(nullable = false, length = 8)
   private String numConta;
+
   @Column(nullable = false, length = 30)
   private String nome;
+
   @Column(length = 45)
   private String sobrenome;
-  @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-  List<ChavePix> chavesPix;
+
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, length = 9)
+  private TipoChaveEnum tipoChave;
+
+  @Column(nullable = false, length = 77, unique = true)
+  private String valorPix;
+
+  @Column(nullable = false)
+  private LocalDateTime dataInclusao;
+
+  @Column
+  private LocalDateTime dataInativacao;
+
+  @Column(nullable = false)
+  private boolean isAtiva;
 }

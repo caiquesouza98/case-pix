@@ -1,4 +1,4 @@
-package com.itau.pix.pix.util;
+package com.itau.pix.pix.validator;
 
 public class ValidatorUtils {
 
@@ -7,7 +7,7 @@ public class ValidatorUtils {
     return email != null && email.matches(pattern);
   }
 
-  public static boolean isValidPhone(String phone) {
+  public static boolean isValidCelular(String phone) {
     String pattern = "^(\\+55)?\\s?\\(?\\d{2}\\)?\\s?9?\\d{4}-?\\d{4}$";
     return phone != null && phone.matches(pattern);
   }
@@ -56,4 +56,8 @@ public class ValidatorUtils {
             check2 == Character.getNumericValue(cnpj.charAt(13));
   }
 
+  public static boolean isValidAleatoria(String aleatoria) {
+    String pattern = "[a-zA-Z0-9]{36}$";
+    return aleatoria != null && aleatoria.matches(pattern);
+  }
 }
