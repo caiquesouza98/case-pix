@@ -11,6 +11,8 @@ import com.itau.pix.pix.repository.ContaPixRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class PixValidationStrategy {
   private final PixValidationFactory pixValidationFactory;
@@ -41,6 +43,10 @@ public class PixValidationStrategy {
     if (!contaPix.isAtiva()) {
       throw new ValidationException("Esta chave está desativada!");
     }
+  }
+
+  public List<ContaPix> filterInvativa(List<ContaPix> contaPixList) {
+    return contaPixList.stream().filter(contaPix -> !contaPix.isAtiva()).toList();
   }
 
   private void requiredFieldsValidator(ContaPixCreateDTO contaPixCreateDTO) {

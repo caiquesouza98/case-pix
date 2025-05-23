@@ -20,7 +20,7 @@ public class SwaggerConfiguration {
                     .description("API para gerenciamento de chaves PIX"))
             .servers(List.of(
                     new Server()
-                            .url("/api/v1")
+                            .url("http://localhost:8080")
                             .description("Servidor Local")
             ));
   }

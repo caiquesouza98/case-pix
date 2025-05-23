@@ -27,7 +27,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/")
+@RequestMapping("/api/v1")
 @Tag(name = "Chaves PIX", description = "API para gerenciamento de chaves PIX")
 public class ContaPixController {
 
@@ -38,7 +38,7 @@ public class ContaPixController {
     this.contaPixService = contaPixService;
   }
 
-  @GetMapping("/find")
+  @GetMapping("/")
   @Operation(
           summary = "Buscar chaves PIX por critérios",
           description = "Permite buscar chaves PIX usando vários critérios de filtragem com suporte a paginação",
@@ -76,7 +76,7 @@ public class ContaPixController {
     return ResponseEntity.ok(contaPixService.findByCriteria(id, tipoChaveEnum, numAgencia, numConta, nome, dataInclusao, dataInativacao, pageable));
   }
 
-  @PostMapping("/add")
+  @PostMapping("/")
   @Operation(
           summary = "Criar nova chave PIX",
           description = "Cria uma nova chave PIX com as informações fornecidas",
@@ -91,7 +91,7 @@ public class ContaPixController {
     return ResponseEntity.status(HttpStatus.CREATED).body(contaPixService.save(accountDTO));
   }
 
-  @PutMapping("/update/{id}")
+  @PutMapping("/{id}")
   @Operation(
           summary = "Atualizar chave PIX existente",
           description = "Atualiza uma chave PIX existente com as novas informações",
@@ -105,7 +105,7 @@ public class ContaPixController {
     return ResponseEntity.ok(contaPixService.update(id, accountDTO));
   }
 
-  @DeleteMapping("/disable/{id}")
+  @DeleteMapping("/{id}")
   @Operation(
           summary = "Desativar chave PIX",
           description = "Desativa uma chave PIX existente através do seu ID, sem removê-la do sistema",

@@ -82,6 +82,8 @@ public class ContaPixService {
       }
     }
 
+    resultList = pixValidationStrategy.filterInvativa(resultList);
+
     if(resultList.isEmpty()) {
       throw new NotFoundException("Nenhuma chave encontrada");
     }
