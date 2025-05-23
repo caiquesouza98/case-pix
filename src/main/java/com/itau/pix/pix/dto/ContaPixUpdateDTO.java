@@ -1,5 +1,6 @@
 package com.itau.pix.pix.dto;
 
+import com.itau.pix.pix.model.enumerator.TipoChaveEnum;
 import com.itau.pix.pix.model.enumerator.TipoContaEnum;
 import com.itau.pix.pix.model.enumerator.TipoPessoaEnum;
 import jakarta.persistence.EnumType;
@@ -22,6 +23,8 @@ import java.util.UUID;
 public class ContaPixUpdateDTO {
 
   private UUID id;
+  private TipoChaveEnum tipoChave;
+  private String chave;
 
   @NotNull(message = "O tipo de conta é obrigatório!")
   @Enumerated(EnumType.STRING)

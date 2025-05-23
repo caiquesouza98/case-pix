@@ -6,7 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum TipoPessoaEnum {
-  FISICA("FISICA"), JURIDICA("JURIDICA");
-
-  private final String tipo;
+  FISICA, JURIDICA;
 }

@@ -16,11 +16,15 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity(name = "CONTA_PIX")
 public class ContaPix {
+
+  @Version
+  private Long version;
+
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id = null;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
@@ -47,7 +51,7 @@ public class ContaPix {
   private TipoChaveEnum tipoChave;
 
   @Column(nullable = false, length = 77, unique = true)
-  private String valorPix;
+  private String chave;
 
   @Column(nullable = false)
   private LocalDateTime dataInclusao;

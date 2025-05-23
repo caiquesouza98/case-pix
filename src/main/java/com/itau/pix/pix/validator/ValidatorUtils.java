@@ -3,7 +3,7 @@ package com.itau.pix.pix.validator;
 public class ValidatorUtils {
 
   public static boolean isValidEmail(String email) {
-    String pattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    String pattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.com$";
     return email != null && email.matches(pattern);
   }
 
