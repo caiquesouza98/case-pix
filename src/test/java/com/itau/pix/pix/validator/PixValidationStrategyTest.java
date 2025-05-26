@@ -6,6 +6,7 @@ import com.itau.pix.pix.exception.NotFoundException;
 import com.itau.pix.pix.exception.ValidationException;
 import com.itau.pix.pix.model.ContaPix;
 import com.itau.pix.pix.model.enumerator.TipoChaveEnum;
+import com.itau.pix.pix.model.enumerator.TipoContaEnum;
 import com.itau.pix.pix.model.enumerator.TipoPessoaEnum;
 import com.itau.pix.pix.repository.ContaPixRepository;
 import com.itau.pix.pix.mocks.Mocks;
@@ -207,4 +208,127 @@ public class PixValidationStrategyTest {
       pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
     });
   }
+@Test
+void optionalFieldsValidatorShouldAcceptValidTipoConta() {
+  ContaPixUpdateDTO dto = Mocks.createContaPixUpdateDTONoID();
+  dto.setTipoConta(TipoContaEnum.CORRENTE);
+
+  assertDoesNotThrow(() -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+  dto.setTipoConta(TipoContaEnum.POUPANCA);
+  assertDoesNotThrow(() -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+}
+
+@Test
+void optionalFieldsValidatorShouldAcceptValidNumAgencia() {
+  ContaPixUpdateDTO dto = Mocks.createContaPixUpdateDTONoID();
+  dto.setNumAgencia("1234");
+  assertDoesNotThrow(() -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+}
+
+@Test
+void optionalFieldsValidatorShouldAcceptValidNumConta() {
+  ContaPixUpdateDTO dto = Mocks.createContaPixUpdateDTONoID();
+  dto.setNumConta("12345678");
+  assertDoesNotThrow(() -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+}
+
+@Test
+void optionalFieldsValidatorShouldAcceptValidNome() {
+  ContaPixUpdateDTO dto = Mocks.createContaPixUpdateDTONoID();
+  dto.setNome("Nome Válido");
+  assertDoesNotThrow(() -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+  dto.setNome("a".repeat(30));
+  assertDoesNotThrow(() -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+}
+
+@Test
+void optionalFieldsValidatorShouldAcceptValidSobrenome() {
+  ContaPixUpdateDTO dto = Mocks.createContaPixUpdateDTONoID();
+  dto.setSobrenome("Sobrenome Válido");
+  assertDoesNotThrow(() -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+  dto.setSobrenome("a".repeat(45));
+  assertDoesNotThrow(() -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+}
+
+@Test
+void optionalFieldsValidatorShouldRejectNumAgenciaWithNonDigits() {
+  ContaPixUpdateDTO dto = Mocks.createContaPixUpdateDTONoID();
+  dto.setNumAgencia("123a");
+  assertThrows(ValidationException.class, () -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+}
+
+@Test
+void optionalFieldsValidatorShouldRejectNumContaWithNonDigits() {
+  ContaPixUpdateDTO dto = Mocks.createContaPixUpdateDTO();
+  dto.setNumConta("1234567a");
+  
+  assertThrows(ValidationException.class, () -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+}
+
+@Test
+void optionalFieldsValidatorShouldRejectNumAgenciaWithWrongLength() {
+  ContaPixUpdateDTO dto = Mocks.createContaPixUpdateDTO();
+  dto.setNumAgencia("123");
+  assertThrows(ValidationException.class, () -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+  dto.setNumAgencia("12345");
+  assertThrows(ValidationException.class, () -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+}
+
+@Test
+void optionalFieldsValidatorShouldRejectNumContaWithWrongLength() {
+  ContaPixUpdateDTO dto = Mocks.createContaPixUpdateDTO();
+  dto.setNumConta("1234567");
+  assertThrows(ValidationException.class, () -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+  dto.setNumConta("123456789");
+  assertThrows(ValidationException.class, () -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+}
+
+@Test
+void optionalFieldsValidatorShouldAcceptWhenAllFieldsAreMissing() {
+  ContaPixUpdateDTO dto = new ContaPixUpdateDTO();
+  assertDoesNotThrow(() -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+}
+
+@Test
+void optionalFieldsValidatorShouldAcceptWhenAllFieldsAreValid() {
+  ContaPixUpdateDTO dto = Mocks.createContaPixUpdateDTONoID();
+  dto.setTipoConta(TipoContaEnum.CORRENTE);
+  dto.setNumAgencia("1234");
+  dto.setNumConta("12345678");
+  dto.setNome("Nome Válido");
+  dto.setSobrenome("Sobrenome Válido");
+  assertDoesNotThrow(() -> {
+    pixValidationStrategy.updateValidator(Mocks.createContaPix(), dto);
+  });
+}
 }

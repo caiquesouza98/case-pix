@@ -56,6 +56,19 @@ public class Mocks {
     return dto;
   }
 
+  public static ContaPixUpdateDTO createContaPixUpdateDTONoID() {
+    ContaPixUpdateDTO dto = new ContaPixUpdateDTO();
+    dto.setTipoChave(TipoChaveEnum.CELULAR);
+    dto.setChave("+5519999999999");
+    dto.setTipoPessoa(TipoPessoaEnum.FISICA);
+    dto.setTipoConta(TipoContaEnum.POUPANCA);
+    dto.setNumAgencia("2222");
+    dto.setNumConta("22222222");
+    dto.setNome("Test");
+    dto.setSobrenome("Test");
+    return dto;
+  }
+
   public static String toJson(final Object obj) {
     try {
       return new ObjectMapper().writeValueAsString(obj);

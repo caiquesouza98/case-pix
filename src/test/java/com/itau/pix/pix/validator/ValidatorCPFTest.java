@@ -18,14 +18,14 @@ class ValidatorCPFTest {
     @Test
     void validCPFShouldReturnTrue() {
         ContaPixCreateDTO dto = mock(ContaPixCreateDTO.class);
-        when(dto.getChave()).thenReturn("52998224725"); // valid CPF
+        when(dto.getChave()).thenReturn("52998224725");
         assertTrue(validator.validate(dto));
     }
 
     @Test
     void invalidCPFShouldReturnFalse() {
         ContaPixCreateDTO dto = mock(ContaPixCreateDTO.class);
-        when(dto.getChave()).thenReturn("00000000000"); // invalid CPF
+        when(dto.getChave()).thenReturn("00000000000");
         assertFalse(validator.validate(dto));
     }
 

@@ -28,16 +28,16 @@ class ValidatorUtilsTest {
 
     @Test
     void isValidCPFShouldValidate() {
-        assertTrue(ValidatorUtils.isValidCPF("52998224725")); // valid
-        assertFalse(ValidatorUtils.isValidCPF("00000000000")); // repeated
+        assertTrue(ValidatorUtils.isValidCPF("52998224725"));
+        assertFalse(ValidatorUtils.isValidCPF("00000000000"));
         assertFalse(ValidatorUtils.isValidCPF("invalid"));
         assertFalse(ValidatorUtils.isValidCPF(null));
     }
 
     @Test
     void isValidCNPJShouldValidate() {
-        assertTrue(ValidatorUtils.isValidCNPJ("32861205000158")); // valid
-        assertFalse(ValidatorUtils.isValidCNPJ("00000000000000")); // repeated
+        assertTrue(ValidatorUtils.isValidCNPJ("32861205000158"));
+        assertFalse(ValidatorUtils.isValidCNPJ("00000000000000"));
         assertFalse(ValidatorUtils.isValidCNPJ("invalid"));
         assertFalse(ValidatorUtils.isValidCNPJ(null));
     }
