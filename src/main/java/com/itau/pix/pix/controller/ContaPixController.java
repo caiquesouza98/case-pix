@@ -55,7 +55,6 @@ public class ContaPixController {
                   @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
           }
   )
-
   public ResponseEntity<Page<ContaPix>> findAllByCriteria(
           @Parameter(description = "ID da chave PIX")
           @RequestParam(required = false) Optional<UUID> id,

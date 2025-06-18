@@ -46,7 +46,7 @@ public class PixValidationStrategy {
   }
 
   public List<ContaPix> filterInvativa(List<ContaPix> contaPixList) {
-    return contaPixList.stream().filter(contaPix -> !contaPix.isAtiva()).toList();
+    return contaPixList.stream().filter(contaPix -> contaPix.isAtiva()).toList();
   }
 
   private void requiredFieldsValidator(ContaPixCreateDTO contaPixCreateDTO) {
